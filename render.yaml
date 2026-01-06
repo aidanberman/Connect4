@@ -6,10 +6,10 @@ services:
     name: connect4-backend
     env: node
     plan: free
+    branch: main
     buildCommand: cd backend && npm install
     startCommand: cd backend && npm start
 
-static_sites:
   - type: static
     name: connect4-frontend
     plan: free
