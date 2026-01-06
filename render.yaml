@@ -1,0 +1,18 @@
+# Render blueprint to create both frontend static site and backend web service
+# Connect this repository in Render and it will create the services below.
+
+services:
+  - type: web
+    name: connect4-backend
+    env: node
+    plan: free
+    buildCommand: cd backend && npm install
+    startCommand: cd backend && npm start
+
+static_sites:
+  - type: static
+    name: connect4-frontend
+    plan: free
+    branch: main
+    buildCommand: npm --prefix frontend install && npm --prefix frontend run build
+    staticPublishPath: frontend/dist

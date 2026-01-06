@@ -106,4 +106,5 @@ app.get('*', (req, res) => {
   });
 });
 
-app.listen(3000, () => console.log('AI server running on http://localhost:3000'));
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`AI server running on http://localhost:${PORT}`));
