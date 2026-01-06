@@ -1,0 +1,406 @@
+body {
+  font-family: system-ui, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+/* forest background (uses asset in src/assets/) */
+body {
+  background-image: url("./assets/Forest16_9.png");
+  background-size: cover;
+  background-position: center;
+}
+.app-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+/* menu layout */
+.menu-screen {
+  gap: 18px;
+}
+.menu-logo {
+  max-width: 420px;
+  width: 60%;
+  height: auto;
+}
+.menu-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 12px;
+  align-items: center;
+}
+.img-btn {
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+.img-btn img {
+  width: auto;
+  max-width: 340px;
+  height: auto;
+  display: block;
+}
+
+/* help modal */
+.help-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+.help-content {
+  background: #fff;
+  padding: 18px;
+  border-radius: 8px;
+  max-width: 92%;
+  max-height: 86%;
+  overflow: auto;
+  position: relative;
+}
+.help-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+.help-close img {
+  width: 36px;
+  height: auto;
+}
+.help-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+.help-grid img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.help-actions {
+  margin-top: 12px;
+  text-align: right;
+}
+.btn-row {
+  margin-top: 12px;
+}
+button {
+  margin: 6px;
+  padding: 8px 12px;
+}
+.play-screen {
+  padding: 12px;
+}
+.board-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+}
+.board-image {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.board-image img {
+  display: block;
+  max-width: 640px;
+  height: auto;
+}
+.board {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+}
+
+/* Holes overlay - 7x6 transparent cells placed exactly over board art */
+.holes-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.hole-cell {
+  position: absolute;
+  /* no translate: use top-left positioning so the element covers the cell box exactly */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+}
+.hole-cell > .chip {
+  /* make chip scale to the hole size so it fits snugly */
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+}
+
+.sidebar-left img,
+.sidebar-right img {
+  display: block;
+  max-height: 520px;
+}
+.sidebar-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.sidebar-right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+/* sidebar art wrapper so we can overlay powerups on top of the graphic */
+.sidebar-art {
+  position: relative;
+  display: inline-block;
+}
+
+/* overlay the stacked powerups on top of the sidebar artwork */
+.sidebar-powerups {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: auto;
+}
+.sidebar-powerups.overlay-left {
+  left: 12px; /* nudge into the artwork — tweak as needed */
+}
+.sidebar-powerups.overlay-right {
+  right: 12px; /* nudge into the artwork — tweak as needed */
+}
+.powerup-small img {
+  width: 56px;
+  height: 56px;
+}
+.powerup-small[disabled] img {
+  opacity: 0.28;
+}
+.powerup-small {
+  background: transparent;
+  border: none;
+  padding: 6px;
+}
+.game-root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.board-row {
+  display: flex;
+}
+.confirm-dropdown {
+  position: absolute;
+  top: -64px;
+  background: rgba(0, 0, 0, 0.85);
+  color: #fff;
+  padding: 8px 10px;
+  border-radius: 6px;
+  min-width: 160px;
+  text-align: center;
+  transform: translateX(-50%);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+}
+
+.powerup-anim {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+.powerup-anim img {
+  max-width: 560px;
+  width: 100%;
+  height: auto;
+}
+.board-cell {
+  width: 72px;
+  height: 72px;
+  margin: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.chip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* position win overlay around the chip */
+.chip {
+  position: relative;
+}
+.chip .chip-win-overlay {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 140%;
+  height: 140%;
+  pointer-events: none;
+  z-index: 5000;
+  display: block;
+}
+.hole-cell {
+  /* keep chip visually inside the circular hole */
+  /* allow win overlay to escape the hole so it can appear above the front board */
+  overflow: visible;
+  border-radius: 50%;
+  padding: 0; /* remove extra padding so chip can fill slot */
+  box-sizing: border-box;
+}
+.hole-cell:hover {
+  cursor: pointer;
+}
+.chip img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform: scale(
+    var(--chip-scale, 1.08)
+  ); /* use CSS var to allow live tuning */
+  transform-origin: center;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+/* grid tuner floating controls */
+.grid-tuner {
+  /* place the tuner below the board image instead of overlaying it */
+  position: static;
+  right: auto;
+  bottom: auto;
+  display: block;
+  margin-top: 12px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 6px;
+  padding: 8px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+  font-size: 12px;
+  width: min(520px, 94%);
+  align-self: center;
+}
+.grid-tuner .tune-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+.grid-tuner button {
+  padding: 4px 6px;
+  font-size: 12px;
+}
+.powerup-gif {
+  width: 40px;
+  height: 40px;
+}
+.sidebar {
+  margin-left: 16px;
+}
+.game-root {
+  display: flex;
+  gap: 20px;
+}
+
+.arcade-side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.arcade-help img {
+  width: 160px;
+  height: auto;
+  display: block;
+}
+.arcade-powerups {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.arcade-powerups img {
+  width: 64px;
+  height: 64px;
+}
+
+/* Classic mode: hide side powerups */
+.classic-mode .arcade-side {
+  display: none;
+}
+
+/* Position help animations exactly like assets/Help expects */
+.board {
+  position: relative;
+}
+.board .help-overlay {
+  position: absolute;
+  right: -180px;
+  top: 8px;
+}
+.powerup-menu {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+.powerup-btn img {
+  width: 52px;
+  height: 52px;
+}
+.powerup-menu.compact .powerup-btn img {
+  width: 36px;
+  height: 36px;
+}
+.powerup-btn {
+  background: transparent;
+  border: none;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+}
+.powerup-label {
+  margin-left: 8px;
+  font-weight: 600;
+  color: #063;
+}
+
+/* global pointer cursors: hover shows FingerPoint, active (click) shows FingerCurlt */
+*:hover {
+  cursor: url("./assets/FingerPoint.png") 12 12, pointer;
+}
+*:active {
+  cursor: url("./assets/FingerCurlt.png") 12 12, pointer;
+}
+
+/* highlight winning chips */
+.chip.winner {
+  box-shadow: 0 0 18px 6px rgba(255, 255, 0, 0.6);
+  transform: scale(1.06);
+}
+
+.winner-banner {
+  margin-top: 12px;
+  padding: 8px;
+  background: rgba(255, 255, 0, 0.14);
+  border-radius: 6px;
+}
+
+/* DEBUG HELPERS removed */
